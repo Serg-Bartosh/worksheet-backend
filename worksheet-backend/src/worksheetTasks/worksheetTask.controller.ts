@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { WorksheetTaskService } from './worksheetTask.service';
 
-@Controller()
+@Controller('worksheet-tasks')
 export class WorksheetTaskController {
-  constructor(private readonly appService: WorksheetTaskService) { }
+  constructor(private readonly worksheetService: WorksheetTaskService) { }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('tasks')
+  async getTasks() {
+    const tasks = await this.worksheetService.findAllTasks();
+    return tasks;
   }
 }
