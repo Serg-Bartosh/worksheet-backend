@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
+import { SequelizeModule } from '@nestjs/sequelize'; // Добавь этот импорт
 import { TaskOptionModel } from './taskOption.model';
 
 @Module({
-  imports: [TaskOptionModel],
+
+  imports: [SequelizeModule.forFeature([TaskOptionModel])],
   controllers: [],
   providers: [],
+  exports: [SequelizeModule],
 })
 
 export class TaskOptionModule { }

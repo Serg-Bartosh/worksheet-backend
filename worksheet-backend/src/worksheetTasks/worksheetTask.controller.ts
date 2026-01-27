@@ -5,7 +5,7 @@ import { WorksheetTaskService } from './worksheetTask.service';
 export class WorksheetTaskController {
   constructor(private readonly worksheetService: WorksheetTaskService) { }
 
-  @Get('tasks')
+  @Get('/tasks')
   async getTasks() {
     const tasks = await this.worksheetService.findAllTasks();
     return tasks;
