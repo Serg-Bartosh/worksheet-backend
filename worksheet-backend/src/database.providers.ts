@@ -1,5 +1,5 @@
+import { Sequelize } from "sequelize-typescript/dist/sequelize/sequelize/sequelize";
 
-import { Sequelize } from 'sequelize-typescript';
 
 export const databaseProviders = [
     {
@@ -7,13 +7,13 @@ export const databaseProviders = [
         useFactory: async () => {
             const sequelize = new Sequelize({
                 dialect: 'mysql',
-                host: 'localhost',
-                port: 3306,
-                username: 'root',
-                password: 'password',
-                database: 'nest',
+                host: process.env.HOST || '127.0.0.1',
+                port: Number(process.env.PORT) || 3306,
+                username: process.env.USERNAME,
+                password: process.env.PASSWORD,
+                database: 'worksheet_backend',
             });
-            sequelize.addModels([/* Your models here */]);
+            sequelize.addModels([]);
             await sequelize.sync();
             return sequelize;
         },
