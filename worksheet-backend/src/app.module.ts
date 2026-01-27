@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { databaseProviders } from './database.providers';
+import { WorksheetTaskModule } from './worksheetTasks/worksheetTask.module';
+import { TaskOptionModule } from './taskOption/taskOption.module';
 
 @Module({
   imports: [
@@ -10,8 +10,10 @@ import { databaseProviders } from './database.providers';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    WorksheetTaskModule,
+    TaskOptionModule
   ],
-  controllers: [AppController],
-  providers: [AppService, ...databaseProviders],
+  controllers: [],
+  providers: [...databaseProviders],
 })
-export class AppModule { }
+export class appModule { }

@@ -1,5 +1,6 @@
-import { Sequelize } from "sequelize-typescript/dist/sequelize/sequelize/sequelize";
-
+import { Sequelize } from 'sequelize-typescript';
+import { WorksheetTaskModel } from './worksheetTasks/worksheetTask.model';
+// import { TaskOption } from './task-option.model';
 
 export const databaseProviders = [
     {
@@ -13,7 +14,9 @@ export const databaseProviders = [
                 password: process.env.PASSWORD,
                 database: 'worksheet_backend',
             });
-            sequelize.addModels([]);
+
+            sequelize.addModels([WorksheetTaskModel]);
+
             await sequelize.sync();
             return sequelize;
         },
