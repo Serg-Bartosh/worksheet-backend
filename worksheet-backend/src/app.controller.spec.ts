@@ -14,9 +14,4 @@ describe('AppController', () => {
     appController = app.get<WorksheetTaskController>(WorksheetTaskController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
-  });
 });

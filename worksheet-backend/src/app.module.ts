@@ -4,6 +4,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { WorksheetTaskModule } from './worksheetTasks/worksheetTask.module';
 import { TaskOptionModule } from './taskOption/taskOption.module';
 import { ConfigService } from '@nestjs/config';
+import { AnswerModel } from './answers/answers.model';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ConfigService } from '@nestjs/config';
 
     WorksheetTaskModule,
     TaskOptionModule,
+    AnswerModel,
   ],
 })
 export class AppModule { }
