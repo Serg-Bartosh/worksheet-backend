@@ -5,6 +5,7 @@ import { WorksheetTaskModule } from './worksheetTasks/worksheetTask.module';
 import { TaskOptionModule } from './taskOption/taskOption.module';
 import { ConfigService } from '@nestjs/config';
 import { AnswerModule } from './answers/answers.module';
+import { SessionsModule } from './sessions/worksheetTask.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AnswerModule } from './answers/answers.module';
     WorksheetTaskModule,
     TaskOptionModule,
     AnswerModule,
+    SessionsModule,
   ],
 })
 export class AppModule { }
