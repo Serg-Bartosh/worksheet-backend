@@ -15,7 +15,7 @@ export class SessionModel extends Model {
         allowNull: false,
         unique: true,
     })
-    token: string;
+    declare token: string;
 
     @HasMany(() => AnswerModel)
     answers: AnswerModel[];

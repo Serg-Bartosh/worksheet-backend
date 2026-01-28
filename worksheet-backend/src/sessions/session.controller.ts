@@ -5,8 +5,12 @@ import { SessionService } from './session.service';
 export class SessionController {
   constructor(private readonly sessionService: SessionService) { }
 
-  @Get('/get_token')
+  @Get('get_token')
   async generateToken() {
-    return this.sessionService.createSession();
+    const session = await this.sessionService.createSession();
+
+    return {
+      token: session.token,
+    };
   }
 }

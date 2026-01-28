@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { WorksheetTaskModel } from './worksheetTask.model';
 import { TaskOptionModel } from '../taskOption/taskOption.model';
@@ -21,11 +21,11 @@ export class WorksheetTaskService {
     });
   }
 
+  async checkAndSaveAnswer(taskId: number, optionId: number, token: string) {
+    const session = await this.sessionModel.findOne({ where: { token } });
 
-  async checkAndSaveAnswer(taskId: number, optionId: number, sessionToken: string) {
-    const session = await this.sessionModel.findOne({ where: { token: sessionToken } });
     if (!session) {
-      throw new UnauthorizedException('Invalid session token');
+      throw new UnauthorizedException('Session not found or expired');
     }
 
     const option = await this.optionModel.findOne({
@@ -33,7 +33,7 @@ export class WorksheetTaskService {
     });
 
     if (!option) {
-      throw new NotFoundException('Option not found for this task');
+      throw new BadRequestException('Invalid task or option ID');
     }
 
     await this.answerModel.upsert({
@@ -44,7 +44,7 @@ export class WorksheetTaskService {
 
     return {
       success: option.isCorrect,
-      message: option.isCorrect ? 'Correct!' : 'Wrong, try again.'
+      message: option.isCorrect ? 'Correct answer!' : 'Wrong answer, try again.'
     };
   }
 }
