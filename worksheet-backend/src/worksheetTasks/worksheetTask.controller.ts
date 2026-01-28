@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Headers, Post, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { WorksheetTaskService } from './worksheetTask.service';
 
 @Controller('worksheet-tasks')
@@ -11,10 +11,21 @@ export class WorksheetTaskController {
     return tasks;
   }
 
-  @Post('/task/unswer/:task_id')
-  async getTasksUnswer(@Param('task_id') task_id: number,
-    @Body('answer_id') answer_id: number) {
-    const tasks = await this.worksheetService.checkAndSaveAnswer(task_id, answer_id);
-    return tasks;
+  @Post('answer/:task_id')
+  async saveAnswer(
+    @Param('task_id') taskId: number,
+    @Body('option_id') optionId: number,
+    @Headers('authorization') authHeader: string
+  ) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw new UnauthorizedException('Please provide a Bearer token in Authorization header');
+    }
+    const token = authHeader.split(' ')[1];
+
+    if (!token) {
+      throw new BadRequestException('Token is empty');
+    }
+
+    return await this.worksheetService.checkAndSaveAnswer(taskId, optionId, token);
   }
 }
