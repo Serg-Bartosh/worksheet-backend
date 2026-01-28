@@ -10,4 +10,4 @@ import { AnswerModel } from './answers.model';
     exports: [SequelizeModule],
 })
 
-export class TaskOptionModule { }
+export class AnswerModule { }
