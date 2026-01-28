@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { SessionModel } from './worksheetTask.model';
+import { SessionModel } from './session.model';
 import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class SessionService {

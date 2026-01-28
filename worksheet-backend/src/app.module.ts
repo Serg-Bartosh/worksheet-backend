@@ -5,7 +5,7 @@ import { WorksheetTaskModule } from './worksheetTasks/worksheetTask.module';
 import { TaskOptionModule } from './taskOption/taskOption.module';
 import { ConfigService } from '@nestjs/config';
 import { AnswerModule } from './answers/answers.module';
-import { SessionsModule } from './sessions/worksheetTask.module';
+import { SessionsModule } from './sessions/session.module';
 
 @Module({
   imports: [

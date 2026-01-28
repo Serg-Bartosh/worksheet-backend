@@ -1,9 +1,9 @@
 
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { SessionService } from './worksheetTask.service';
-import { SessionController } from './worksheetTask.controller';
-import { SessionModel } from './worksheetTask.model';
+import { SessionService } from './session.service';
+import { SessionController } from './session.controller';
+import { SessionModel } from './session.model';
 
 @Module({
   imports: [
