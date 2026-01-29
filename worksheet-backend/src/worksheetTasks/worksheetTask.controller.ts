@@ -21,8 +21,6 @@ export class WorksheetTaskController {
     @Req() req: any
   ) {
     const session_id = req.session.id;
-    console.log('Session from request:', session_id);
-    console.log('Task ID:', taskId, 'Option ID:', optionDto.option_id);
     return await this.worksheetService.checkAndSaveAnswer(taskId, optionDto.option_id, session_id);
   }
 }
