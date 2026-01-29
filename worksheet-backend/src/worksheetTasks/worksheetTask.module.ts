@@ -6,12 +6,13 @@ import { WorksheetTaskModel } from './worksheetTask.model';
 import { TaskOptionModel } from '../taskOption/taskOption.model';
 import { AnswerModel } from '../answers/answers.model';
 import { SessionModel } from '../sessions/session.model';
+import { SessionGuard } from '../common/guards/sessionGuard';
 
 @Module({
   imports: [
     SequelizeModule.forFeature([WorksheetTaskModel, TaskOptionModel, AnswerModel, SessionModel])
   ],
-  providers: [WorksheetTaskService],
+  providers: [WorksheetTaskService, SessionGuard],
   controllers: [WorksheetTaskController],
 })
 export class WorksheetTaskModule { }
