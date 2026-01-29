@@ -7,7 +7,7 @@ export class TaskOptionModel extends Model {
     declare id: number;
 
     @Column({ type: DataType.STRING, allowNull: false })
-    text: string;
+    declare text: string;
 
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
     declare isCorrect: boolean;

@@ -12,16 +12,16 @@ export class AnswerModel extends Model {
     @Index({ name: 'session_task_unique', unique: true })
     @ForeignKey(() => SessionModel)
     @Column({ type: DataType.INTEGER, allowNull: false })
-    sessionId: number;
+    declare sessionId: number;
 
     @Index({ name: 'session_task_unique', unique: true })
     @ForeignKey(() => WorksheetTaskModel)
     @Column({ type: DataType.INTEGER, allowNull: false })
-    taskId: number;
+    declare taskId: number;
 
     @ForeignKey(() => TaskOptionModel)
     @Column({ type: DataType.INTEGER, allowNull: false })
-    optionId: number;
+    declare optionId: number;
 
     @BelongsTo(() => SessionModel)
     session: SessionModel;
