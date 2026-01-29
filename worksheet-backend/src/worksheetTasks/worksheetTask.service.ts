@@ -43,8 +43,8 @@ export class WorksheetTaskService {
     });
 
     return {
-      success: option.isCorrect,
-      message: option.isCorrect ? 'Correct answer!' : 'Wrong answer, try again.'
+      success: option.getDataValue('isCorrect'),
+      message: option.getDataValue('isCorrect') ? 'Correct answer!' : 'Wrong answer, try again.'
     };
   }
 }
