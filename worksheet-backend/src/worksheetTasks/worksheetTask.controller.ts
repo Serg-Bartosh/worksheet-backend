@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Headers, Post, BadRequestException, UnauthorizedException, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
 import { WorksheetTaskService } from './worksheetTask.service';
 import { SessionGuard } from '../common/guards/sessionGuard';
+import { OptionDto } from './dto/optionIdDto';
 
 @Controller('worksheet-tasks')
 export class WorksheetTaskController {
@@ -16,17 +17,12 @@ export class WorksheetTaskController {
   @UseGuards(SessionGuard)
   async saveAnswer(
     @Param('task_id', ParseIntPipe) taskId: number,
-    @Body('option_id', ParseIntPipe) optionId: number,
+    @Body() optionDto: OptionDto,
     @Req() req: any
   ) {
-
-    // Валидация логики (DTO-style) остается здесь
-    if (taskId <= 0 || optionId <= 0) {
-      throw new BadRequestException('IDs must be positive integers');
-    }
-
-    const token = req.session.token;
-
-    return await this.worksheetService.checkAndSaveAnswer(taskId, optionId, token);
+    const session_id = req.session.id;
+    console.log('Session from request:', session_id);
+    console.log('Task ID:', taskId, 'Option ID:', optionDto.option_id);
+    return await this.worksheetService.checkAndSaveAnswer(taskId, optionDto.option_id, session_id);
   }
 }
