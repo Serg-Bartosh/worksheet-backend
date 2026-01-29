@@ -28,6 +28,10 @@ export class WorksheetTaskService {
       throw new UnauthorizedException('Session not found or expired');
     }
 
+    if (taskId <= 0 || optionId <= 0) {
+      throw new BadRequestException('IDs must be positive integers');
+    }
+
     const option = await this.optionModel.findOne({
       where: { id: optionId, taskId: taskId }
     });

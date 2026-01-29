@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Headers, Post, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Headers, Post, BadRequestException, UnauthorizedException, ParseIntPipe } from '@nestjs/common';
 import { WorksheetTaskService } from './worksheetTask.service';
 
 @Controller('worksheet-tasks')
@@ -13,8 +13,8 @@ export class WorksheetTaskController {
 
   @Post('answer/:task_id')
   async saveAnswer(
-    @Param('task_id') taskId: number,
-    @Body('option_id') optionId: number,
+    @Param('task_id', ParseIntPipe) taskId: number,
+    @Body('option_id', ParseIntPipe) optionId: number,
     @Headers('authorization') authHeader: string
   ) {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
