@@ -17,6 +17,8 @@ export class WorksheetTaskController {
     @Body('option_id', ParseIntPipe) optionId: number,
     @Headers('authorization') authHeader: string
   ) {
+    //TODO: gurd
+    // validate token 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException('Please provide a Bearer token in Authorization header');
     }
@@ -25,7 +27,12 @@ export class WorksheetTaskController {
     if (!token) {
       throw new BadRequestException('Token is empty');
     }
-
+    // final check and save answer
+    //TODO: DTO
+    if (taskId <= 0 || optionId <= 0) {
+      throw new BadRequestException('IDs must be positive integers');
+    }
+    // final check and save answer
     return await this.worksheetService.checkAndSaveAnswer(taskId, optionId, token);
   }
 }

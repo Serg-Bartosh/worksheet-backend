@@ -10,7 +10,7 @@ export class TaskOptionModel extends Model {
     text: string;
 
     @Column({ type: DataType.BOOLEAN, defaultValue: false })
-    isCorrect: boolean;
+    declare isCorrect: boolean;
 
     @ForeignKey(() => WorksheetTaskModel)
     @Column({ type: DataType.INTEGER })

@@ -23,13 +23,8 @@ export class WorksheetTaskService {
 
   async checkAndSaveAnswer(taskId: number, optionId: number, token: string) {
     const session = await this.sessionModel.findOne({ where: { token } });
-
     if (!session) {
       throw new UnauthorizedException('Session not found or expired');
-    }
-
-    if (taskId <= 0 || optionId <= 0) {
-      throw new BadRequestException('IDs must be positive integers');
     }
 
     const option = await this.optionModel.findOne({
@@ -46,6 +41,9 @@ export class WorksheetTaskService {
       optionId: optionId
     });
 
+    console.log(option);
+    console.log(option.isCorrect);
+    //TODO: mb change
     return {
       success: option.getDataValue('isCorrect'),
       message: option.getDataValue('isCorrect') ? 'Correct answer!' : 'Wrong answer, try again.'

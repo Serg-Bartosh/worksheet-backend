@@ -11,6 +11,7 @@ export class SessionService {
 
   async createSession() {
     const token = uuidv4();
+    //TODO: hash
     const session = await this.sessionModel.create({ token });
     return { token: session.token };
   }
