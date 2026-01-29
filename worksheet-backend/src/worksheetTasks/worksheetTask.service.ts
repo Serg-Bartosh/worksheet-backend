@@ -4,6 +4,7 @@ import { WorksheetTaskModel } from './worksheetTask.model';
 import { TaskOptionModel } from '../taskOption/taskOption.model';
 import { AnswerModel } from '../answers/answers.model';
 import { SessionModel } from '../sessions/session.model';
+import { OptionDto } from './dto/optionIdDto';
 
 @Injectable()
 export class WorksheetTaskService {
@@ -21,12 +22,7 @@ export class WorksheetTaskService {
     });
   }
 
-  async checkAndSaveAnswer(taskId: number, optionId: number, token: string) {
-    const session = await this.sessionModel.findOne({ where: { token } });
-    if (!session) {
-      throw new UnauthorizedException('Session not found or expired');
-    }
-
+  async checkAndSaveAnswer(taskId: number, optionId: number, sessionId: number) {
     const option = await this.optionModel.findOne({
       where: { id: optionId, taskId: taskId }
     });
@@ -36,17 +32,14 @@ export class WorksheetTaskService {
     }
 
     await this.answerModel.upsert({
-      sessionId: session.id,
+      sessionId: sessionId,
       taskId: taskId,
       optionId: optionId
     });
 
-    console.log(option);
-    console.log(option.isCorrect);
-    //TODO: mb change
     return {
-      success: option.getDataValue('isCorrect'),
-      message: option.getDataValue('isCorrect') ? 'Correct answer!' : 'Wrong answer, try again.'
+      success: option.isCorrect,
+      message: option.isCorrect ? 'Correct answer!' : 'Wrong answer, try again.'
     };
   }
 }
