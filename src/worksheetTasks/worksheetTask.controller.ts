@@ -8,6 +8,7 @@ export class WorksheetTaskController {
   constructor(private readonly worksheetService: WorksheetTaskService) { }
 
   @Get('/tasks')
+  @UseGuards(SessionGuard)
   async getTasks() {
     const tasks = await this.worksheetService.findAllTasks();
     return tasks;

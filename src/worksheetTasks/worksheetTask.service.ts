@@ -35,7 +35,8 @@ export class WorksheetTaskService {
     });
 
     return {
-      success: option.isCorrect,
+      isCorrect: option.isCorrect,
+      result: option.isCorrect ? 'good' : 'wrong',
       message: option.isCorrect ? 'Correct answer!' : 'Wrong answer, try again.'
     };
   }
