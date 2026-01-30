@@ -6,8 +6,8 @@ A full-stack application for managing educational tasks and user answers. The ba
 
 ## 🚀 Live Demo
 
-* **Backend API:** *Render link coming soon*
-* **Frontend UI:** *Vercel link coming soon*
+* **Backend API:** *[Render link coming soon](https://worksheet-backend-keqc.onrender.com)*
+* **Frontend UI:** *[Vercel link coming soon](https://worksheet-delta.vercel.app/)*
 
 ---
 
