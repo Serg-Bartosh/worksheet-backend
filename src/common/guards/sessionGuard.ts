@@ -1,4 +1,3 @@
-// guards/session.guard.ts
 import {
     CanActivate,
     ExecutionContext,
