@@ -12,7 +12,7 @@ import { UserModule } from './user/user.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
+      // envFilePath: '.env' // Uncomment and specify if you want to use a custom .env file
     }),
 
     SequelizeModule.forRootAsync({

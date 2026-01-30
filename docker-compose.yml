@@ -1,0 +1,58 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: worksheet-backend
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uadmin", "-padmin" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-backend-image
+    restart: always
+    ports:
+      - "3005:3005"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: admin
+      PORT: 3005
+      ENCRYPTION_KEY: f3b7c92a1d4e5f6g7h8i9j0k1l2m3n4o
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+
+  tests:
+    image: my-backend-image
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: admin
+      PORT: 3005
+      ENCRYPTION_KEY: f3b7c92a1d4e5f6g7h8i9j0k1l2m3n4o
+      NODE_ENV: test
+    command: npm run test:e2e
+    depends_on:
+      backend:
+        condition: service_started
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
