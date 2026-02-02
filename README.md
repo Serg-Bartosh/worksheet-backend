@@ -6,9 +6,8 @@ A full-stack application for managing educational tasks and user answers. The ba
 
 ## 🚀 Live Demo
 
-* **Backend API:** *[Render link coming soon](https://worksheet-backend-keqc.onrender.com)*
-* **Frontend UI:** *[Vercel link coming soon](https://worksheet-delta.vercel.app/)*
-
+* **Backend API:** *[Render link coming soon](https://worksheet-backend-22st.onrender.com)*
+* **Frontend UI:** *[Vercel link coming soon](https://worksheet-frontvercel.vercel.app/)*
 ---
 
 ## 🛠 Tech Stack
@@ -17,7 +16,7 @@ A full-stack application for managing educational tasks and user answers. The ba
 * **Database:** MySQL 8.0
 * **ORM:** Sequelize
 * **DevOps:** Docker, Docker Compose
-* **Deployment:** Render (Backend), Vercel (Frontend)
+* **Deployment:** Render (Backend), Vercel (Frontend), Aiven(MYSQL)
 
 ---
 
