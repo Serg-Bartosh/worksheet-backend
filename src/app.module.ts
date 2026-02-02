@@ -23,7 +23,7 @@ import { UserModule } from './user/user.module';
         port: configService.get<number>('MYSQL_PORT', 3306),
         username: configService.get<string>('MYSQL_USERNAME'),
         password: configService.get<string>('MYSQL_PASSWORD'),
-        database: 'worksheet-backend',
+        database: configService.get<string>('MYSQL_DATABASE', 'worksheet-backend'),
         autoLoadModels: true,
         synchronize: true,
       }),
