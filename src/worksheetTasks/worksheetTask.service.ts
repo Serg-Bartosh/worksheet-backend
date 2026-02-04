@@ -14,7 +14,9 @@ export class WorksheetTaskService {
 
   async findAllTasks() {
     return this.taskModel.findAll({
-      include: [TaskOptionModel],
+      include: [{
+        model: TaskOptionModel.scope('withoutAnswer'),
+      }],
       attributes: { exclude: ['createdAt', 'updatedAt'] },
     });
   }
