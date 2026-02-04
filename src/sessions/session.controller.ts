@@ -1,18 +1,20 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { SessionService } from './session.service';
-import { CreateSessionDto } from './dto/createSessionDto';
+import { SessionGuard } from '../common/guards/sessionGuard';
+import { SessionUser } from '../common/decorators/session-user.decorator';
+import { SessionModel } from './session.model';
 
 @Controller('session')
 export class SessionController {
   constructor(private readonly sessionService: SessionService) { }
 
-  //It's looks like Post method, but in pdf u wanted Get
+  @UseGuards(SessionGuard)
   @Get('/get_token')
-  async createSession(@Body() dto: CreateSessionDto) {
-    const session = await this.sessionService.createSession(dto.userId);
+  async createSession(@SessionUser() session: SessionModel) {
+    const newSession = await this.sessionService.createSession(session.userId);
 
     return {
-      token: session.token,
+      token: newSession.token,
     };
   }
 }
