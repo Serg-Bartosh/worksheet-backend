@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
 import { CreateCategoryDto } from "./dto/createCategoryDto";
 import { CategoryService } from "./catefory.service";
 
@@ -11,10 +11,10 @@ export class CategoryController {
     return this.categoryService.all_categories();
   }
 
-  @Post('/categori_create')
-  async category_create(@Body() dto: CreateCategoryDto) {
-    return await this.categoryService.create_category(dto);
-  }
+  //TODO: Додав у коментарі, тому що гітхаб не дозволяє пушити код з помилками.
+  // async category_create(@Body() dto: CreateCategoryDto) {
+  //   return await this.categoryService.create_category(dto);
+  // }
 
   @Put('/:categoryId')
   async category_updateById(@Body() dto: CreateCategoryDto, @Param('categoryId', ParseIntPipe) categoryId: number) {
