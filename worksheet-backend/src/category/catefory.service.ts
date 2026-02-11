@@ -17,6 +17,19 @@ export class CategoryService {
     return tasks;
   }
 
+  // async create_category(dto: CreateCategoryDto) {
+  //   try {
+  //     const category = await this.categoryModel.create({
+  //       name: dto.name,
+  //       color: dto.color,
+  //     });
+  //     return category;
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       throw new BadRequestException('Error creating category: ' + error.message);
+  //     }
+  //   }
+  // }
   async create_category(dto: CreateCategoryDto) {
     try {
       const category = await this.categoryModel.create({
