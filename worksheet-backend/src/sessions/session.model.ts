@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { AnswerModel } from '../answers/answers.model';
+import { UserModel } from '../user/user.model';
 
 @Table({ tableName: 'sessions', timestamps: true })
 export class SessionModel extends Model {
@@ -17,6 +18,22 @@ export class SessionModel extends Model {
     })
     declare token: string;
 
+    @Column({
+        type: DataType.DATE,
+        allowNull: false,
+    })
+    declare expiresAt: Date;
+
+    @ForeignKey(() => UserModel)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    declare userId: number;
+
+    @BelongsTo(() => UserModel)
+    declare user: UserModel;
+
     @HasMany(() => AnswerModel)
-    answers: AnswerModel[];
+    declare answers: AnswerModel[];
 }

@@ -1,10 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { WorksheetTaskModel } from './worksheetTask.model';
 import { TaskOptionModel } from '../taskOption/taskOption.model';
 import { AnswerModel } from '../answers/answers.model';
-import { SessionModel } from '../sessions/session.model';
-import { OptionDto } from './dto/optionIdDto';
 
 @Injectable()
 export class WorksheetTaskService {
@@ -12,12 +10,13 @@ export class WorksheetTaskService {
     @InjectModel(WorksheetTaskModel) private taskModel: typeof WorksheetTaskModel,
     @InjectModel(TaskOptionModel) private optionModel: typeof TaskOptionModel,
     @InjectModel(AnswerModel) private answerModel: typeof AnswerModel,
-    @InjectModel(SessionModel) private sessionModel: typeof SessionModel,
   ) { }
 
   async findAllTasks() {
     return this.taskModel.findAll({
-      include: [TaskOptionModel],
+      include: [{
+        model: TaskOptionModel.scope('withoutAnswer'),
+      }],
       attributes: { exclude: ['createdAt', 'updatedAt'] },
     });
   }
@@ -38,7 +37,8 @@ export class WorksheetTaskService {
     });
 
     return {
-      success: option.isCorrect,
+      isCorrect: option.isCorrect,
+      result: option.isCorrect ? 'good' : 'wrong',
       message: option.isCorrect ? 'Correct answer!' : 'Wrong answer, try again.'
     };
   }

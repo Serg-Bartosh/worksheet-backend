@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Headers, Post, BadRequestException, UnauthorizedException, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
 import { WorksheetTaskService } from './worksheetTask.service';
 import { SessionGuard } from '../common/guards/sessionGuard';
 import { OptionDto } from './dto/optionIdDto';
@@ -8,6 +8,7 @@ export class WorksheetTaskController {
   constructor(private readonly worksheetService: WorksheetTaskService) { }
 
   @Get('/tasks')
+  @UseGuards(SessionGuard)
   async getTasks() {
     const tasks = await this.worksheetService.findAllTasks();
     return tasks;
