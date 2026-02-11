@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Put } from "@nestjs/common";
 import { CreateCategoryDto } from "./dto/createCategoryDto";
 import { CategoryService } from "./catefory.service";
 
@@ -16,18 +16,18 @@ export class CategoryController {
     return await this.categoryService.create_category(dto);
   }
 
-  @Post('/:categoryId')
-  async category_update(@Body() dto: CreateCategoryDto, @Param('categoryId', ParseIntPipe) categoryId: number) {
+  @Put('/:categoryId')
+  async category_updateById(@Body() dto: CreateCategoryDto, @Param('categoryId', ParseIntPipe) categoryId: number) {
     return await this.categoryService.update_category(categoryId, dto);
   }
 
-  @Post('/login')
-  async category_create(@Body() dto: CreateCategoryDto) {
-    return await this.categoryService.login(dto);
+  @Delete('/delete/:categoryId')
+  async delete_categoryById(@Param('categoryId', ParseIntPipe) categoryId: number) {
+    return await this.categoryService.delete_category(categoryId);
   }
 
-  @Post('/login')
-  async category_create(@Body() dto: CreateCategoryDto) {
-    return await this.categoryService.login(dto);
-  }
+  // @Pa('/login')
+  // async category_create(@Body() dto: CreateCategoryDto) {
+  //   return await this.categoryService.login(dto);
+  // }
 }
