@@ -4,15 +4,11 @@ import {
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { SessionModel } from '../../sessions/session.model';
+import { SessionService } from '../../sessions/session.service';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-    constructor(
-        @InjectModel(SessionModel)
-        private sessionModel: typeof SessionModel,
-    ) { }
+    constructor(private readonly sessionService: SessionService) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
@@ -21,13 +17,12 @@ export class SessionGuard implements CanActivate {
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             throw new UnauthorizedException('Missing or invalid Authorization header');
         }
+        const rawToken = authHeader.split(' ')[1];
 
-        const token = authHeader.split(' ')[1];
-
-        const session = await this.sessionModel.findOne({ where: { token } });
+        const session = await this.sessionService.validateAndGetSession(rawToken);
 
         if (!session) {
-            throw new UnauthorizedException('Session expired or invalid');
+            throw new UnauthorizedException('Session not found or expired');
         }
 
         request.session = session;

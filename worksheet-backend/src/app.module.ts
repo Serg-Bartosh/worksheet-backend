@@ -6,12 +6,13 @@ import { TaskOptionModule } from './taskOption/taskOption.module';
 import { ConfigService } from '@nestjs/config';
 import { AnswerModule } from './answers/answers.module';
 import { SessionsModule } from './sessions/session.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
+      // envFilePath: '.env' // Uncomment and specify if you want to use a custom .env file
     }),
 
     SequelizeModule.forRootAsync({
@@ -22,7 +23,7 @@ import { SessionsModule } from './sessions/session.module';
         port: configService.get<number>('MYSQL_PORT', 3306),
         username: configService.get<string>('MYSQL_USERNAME'),
         password: configService.get<string>('MYSQL_PASSWORD'),
-        database: 'worksheet-backend',
+        database: configService.get<string>('MYSQL_DATABASE', 'worksheet-backend'),
         autoLoadModels: true,
         synchronize: true,
       }),
@@ -32,6 +33,7 @@ import { SessionsModule } from './sessions/session.module';
     TaskOptionModule,
     AnswerModule,
     SessionsModule,
+    UserModule,
   ],
 })
 export class AppModule { }

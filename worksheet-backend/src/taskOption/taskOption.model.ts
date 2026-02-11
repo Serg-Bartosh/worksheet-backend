@@ -1,7 +1,14 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { WorksheetTaskModel } from '../worksheetTasks/worksheetTask.model';
 
-@Table({ tableName: 'task_options' })
+@Table({
+    tableName: 'task_options',
+    scopes: {
+        withoutAnswer: {
+            attributes: { exclude: ['isCorrect', 'createdAt', 'updatedAt'] },
+        },
+    },
+})
 export class TaskOptionModel extends Model {
     @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
     declare id: number;
@@ -14,8 +21,8 @@ export class TaskOptionModel extends Model {
 
     @ForeignKey(() => WorksheetTaskModel)
     @Column({ type: DataType.INTEGER })
-    taskId: number;
+    declare taskId: number;
 
     @BelongsTo(() => WorksheetTaskModel)
-    task: WorksheetTaskModel;
+    declare task: WorksheetTaskModel;
 }

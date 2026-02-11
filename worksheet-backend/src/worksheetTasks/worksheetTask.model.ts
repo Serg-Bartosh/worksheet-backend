@@ -14,7 +14,7 @@ export class WorksheetTaskModel extends Model {
         type: DataType.TEXT,
         allowNull: false,
     })
-    instruction: string;
+    declare instruction: string;
 
     @HasMany(() => TaskOptionModel)
     options: TaskOptionModel[];
